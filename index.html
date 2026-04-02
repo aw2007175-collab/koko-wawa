@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Image Circle</title>
+<title>Zoom Circle</title>
 
 <style>
     body {
@@ -16,26 +16,23 @@
     }
 
     .circle {
-        width: 260px;  /* كبرنا الدائرة */
-        height: 260px;
+        width: 200px;
+        height: 200px;
         background-color: #d3d6da;
-        border-radius: 1%;
-        display:block;
+        border-radius: 50%;
+        display: flex;
         justify-content: center;
-        align-items: center;    
+        align-items: center;
+        font-size: 80px;
+        font-weight: bold;
+        color: #2c3136;
+        font-family: Arial, sans-serif;
         position: relative;
 
-        animation: spin 1s linear infinite, pulse 0.6s ease-in-out infinite;
+        animation: spin .01111s linear infinite, pulse 0.6s ease-in-out infinite;
         animation-play-state: paused;
 
         transition: transform 0.2s ease;
-        overflow: hidden; /* يخلي الصورة جوا الدائرة */
-    }
-
-    .circle img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* تخلي الصورة تملى الدائرة */
     }
 
     @keyframes spin {
@@ -52,9 +49,7 @@
 </head>
 <body>
 
-<div class="circle" id="circle">
-    <img src="/Users/hp/OneDrive/Desktop/Screenshot_2026-02-21-10-32-44-62_1c337646f29875672b5a61192b9010f9.jpg" alt="image">
-</div>
+<div class="circle" id="circle">67</div>
 
 <script>
     const circle = document.getElementById("circle");
@@ -68,18 +63,20 @@
 
         const distance = Math.hypot(e.clientX - circleX, e.clientY - circleY);
 
-        if (distance < 140) {
+        if (distance < 110) {
             circle.style.animationPlayState = "running";
 
             const moveX = (e.clientX - circleX) / 8;
             const moveY = (e.clientY - circleY) / 8;
 
+            // زوم عشوائي
             if (!zoomInterval) {
                 zoomInterval = setInterval(() => {
-                    scale = 1 + Math.random() * 0.4;
+                    scale = 1 + Math.random() * 0.4; // تكبير عشوائي
                 }, 200);
             }
 
+            // دمج الحركة + الزوم
             circle.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale})`;
 
         } else {
